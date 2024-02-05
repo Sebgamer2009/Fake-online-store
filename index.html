@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Online Store</title>
+</head>
+<body>
+    <h1>Fake Online Store</h1>
+
+    <form>
+        <input type="text" id="name" placeholder="Product Name">
+        <input type="file" id="image" accept="image/*">
+        <button type="button" onclick="uploadProduct()">Upload Product</button>
+    </form>
+
+    <div id="productList"></div>
+
+    <script>
+        function uploadProduct() {
+            var name = document.getElementById("name").value;
+            var image = document.getElementById("image");
+
+            if (name && image.files.length > 0) {
+                var fileList = image.files;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var product = document.createElement("div");
+                    var productName = document.createElement("h3");
+                    var productImage = document.createElement("img");
+                    productName.textContent = name;
+                    productImage.src = e.target.result;
+                    product.appendChild(productName);
+                    product.appendChild(productImage);
+                    document.getElementById("productList").appendChild(product);
+                }
+                reader.readAsDataURL(fileList[0]);
+            } else {
+                alert("Please enter product name and select an image");
+            }
+        }
+    </script>
+</body>
+</html>
